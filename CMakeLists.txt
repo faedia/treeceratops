@@ -23,7 +23,14 @@ endif()
 include(FetchContent)
 
 add_library(treeceratops INTERFACE)
-target_include_directories(treeceratops INTERFACE include)
+target_include_directories(treeceratops INTERFACE
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+
+install(TARGETS treeceratops EXPORT treeceratops-target
+    PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+export(TARGETS treeceratops NAMESPACE treeceratops::
+    FILE ${PROJECT_BINARY_DIR}/${targets_export_name}.cmake)
 
 if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR LOXT_CMAKE_BUILD_TESTING) AND BUILD_TESTING)
     add_subdirectory(test)
