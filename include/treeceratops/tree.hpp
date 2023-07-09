@@ -225,6 +225,11 @@ template <class T, class Allocator = std::allocator<node_type_<T>>> class tree
         return child_inner<Idx, TIt>(TIt{this, data_[pos.node_].children[0]});
     }
 
+    iterator last_child(const iterator &pos)
+    {
+        return iterator{this, data_[pos.node_].children.back()};
+    }
+
     int depth(iterator pos)
     {
         assert(pos.tree_ = this);
